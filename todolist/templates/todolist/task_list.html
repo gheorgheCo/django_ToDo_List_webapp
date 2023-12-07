@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My ToDo List App</title>
+    <style>
+        /* Adding CSS styles here */
+        tr.header-row {
+            background-color: #333;
+            color: white;
+        }
+        tr.data-row:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr.data-row:nth-child(odd) {
+            background-color: #e6e6e6;
+        }
+        /* Additional styles can be added as needed */
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <p class="other">Welcome to your to-do list, {{ request.user }}</p>
+    <a class="other" href="{% url 'logout' %}">Logout</a>
+    {% endif %}
+    
+<form>
+    <button formaction="{% url 'create-task' %}">Create Task</button>
+</form>
+<table border="1" width="100%">
+    <tr class="header-row">
+        <th height="70px">List Item</th>
+        <th height="70px">Description</th>
+        <th height="70px">Status</th>
+        <th height="70px">Update Task</th>
+        <th height="70px">Delete Task</th>
+    </tr>
+    {% for task in object_list %}
+    <tr class="data-row">
+        <td style="text-align: center">{{task.title}}</td>
+        <td style="text-align: center">{{task.description}}</td>
+        <td style="text-align: center">{{task.status}}</td>
+        <td style="text-align: center"><a href="{% url 'update-task' task.id %}">Update Task</a></td>
+        <td style="text-align: center"><a href="{% url 'delete-task' task.id %}">Delete Task</a></td>
+
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3" style="text-align: center"><h3>To do list is Empty</h3></td>
+    </tr>
+    {%endfor%}
+</table>
+</body>
+</html>

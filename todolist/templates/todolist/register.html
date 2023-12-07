@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete a Task</title>
+
+</head>
+<body>
+    <a class="other" href="{% url 'login' %}">Go Back</a>
+
+<form class="container" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Register">
+<a href="{% url 'login' %}">Already a member?</a>
+</body>
+</html>
